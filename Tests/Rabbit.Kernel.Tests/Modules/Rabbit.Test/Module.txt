@@ -1,0 +1,17 @@
+﻿Name: Test
+Category: Default
+Description: 测试模块
+FeatureDescription: 
+Version: 1.0.0.0
+KernelVersion: 1.0.0.0
+Runtime: Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da|Rabbit.Components.Caching.Memory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+WebSite: 
+Company: 
+Author: majian
+Tags: 
+Dependencies: 
+Features: 
+    Rabbit.Test.Feaure1:
+        Name: Feaure1
+        Description: Feaure1
+        Category: Default

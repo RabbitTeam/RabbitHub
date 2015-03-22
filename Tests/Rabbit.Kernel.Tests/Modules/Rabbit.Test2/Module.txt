@@ -1,0 +1,13 @@
+﻿Name: Test2
+Category: Default
+Description: 测试模块2
+FeatureDescription: 
+Version: 1.0.0.0
+KernelVersion: 1.0.0.0
+Runtime: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+WebSite: 
+Company: 
+Author: majian
+Tags: 
+Dependencies: 
+Features: 
