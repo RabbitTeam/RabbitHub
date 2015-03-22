@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B9C6D026-75ED-49DE-8889-4930A72590DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rabbit.Kernel</RootNamespace>
+    <AssemblyName>Rabbit.Kernel</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Rabbit.Kernel.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Rabbit.Kernel.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45_Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Net45_Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Rabbit.Kernel.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45_Release|AnyCPU'">
+    <OutputPath>bin\Net45_Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Rabbit.Kernel.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bus\BuilderExtensions.cs" />
+    <Compile Include="Bus\Configurators\RequestConfigurator.cs" />
+    <Compile Include="Bus\Configurators\ResponseConfigurator.cs" />
+    <Compile Include="Bus\Configurators\TimeoutConfigurator.cs" />
+    <Compile Include="Bus\Exceptions\RequestTimeoutException.cs" />
+    <Compile Include="Bus\IBus.cs" />
+    <Compile Include="Bus\ILocalBus.cs" />
+    <Compile Include="Bus\IMessageDispatcher.cs" />
+    <Compile Include="Bus\Impl\DefaultBus.cs" />
+    <Compile Include="Bus\Impl\DefaultMessageDispatcher.cs" />
+    <Compile Include="Bus\MessageDispatchEventArgs.cs" />
+    <Compile Include="Bus\Messages.cs" />
+    <Compile Include="Caching\AcquireContext.cs" />
+    <Compile Include="Caching\BuilderExtensions.cs" />
+    <Compile Include="Caching\CacheModule.cs" />
+    <Compile Include="Caching\IAsyncTokenProvider.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICacheContextAccessor.cs" />
+    <Compile Include="Caching\ICacheHolder.cs" />
+    <Compile Include="Caching\ICacheManager.cs" />
+    <Compile Include="Caching\Impl\DefaultAsyncTokenProvider.cs" />
+    <Compile Include="Caching\Impl\DefaultCacheContextAccessor.cs" />
+    <Compile Include="Caching\Impl\DefaultCacheManager.cs" />
+    <Compile Include="Caching\Impl\DefaultParallelCacheContext.cs" />
+    <Compile Include="Caching\Impl\Cache.cs" />
+    <Compile Include="Caching\Impl\DefaultCacheHolder.cs" />
+    <Compile Include="Caching\Impl\MemoryCachingBuilderExtensions.cs" />
+    <Compile Include="Caching\Impl\Signals.cs" />
+    <Compile Include="Caching\IParallelCacheContext.cs" />
+    <Compile Include="Caching\IVolatileProvider.cs" />
+    <Compile Include="Caching\IVolatileToken.cs" />
+    <Compile Include="Caching\ISignals.cs" />
+    <Compile Include="Caching\Weak.cs" />
+    <Compile Include="CollectionOrderModule.cs" />
+    <Compile Include="Environment\Assemblies\IAssemblyLoader.cs" />
+    <Compile Include="Environment\Assemblies\Impl\AppDomainAssemblyNameResolver.cs" />
+    <Compile Include="Environment\Assemblies\Impl\DefaultAssemblyLoader.cs" />
+    <Compile Include="Environment\Assemblies\Impl\FrameworkAssemblyNameResolver.cs" />
+    <Compile Include="Environment\Assemblies\Impl\GacAssemblyNameResolver.cs" />
+    <Compile Include="Environment\Assemblies\Models\AssemblyDescriptor.cs" />
+    <Compile Include="Environment\Configuration\Impl\DefaultShellSettingsManager.cs" />
+    <Compile Include="Environment\Configuration\IShellSettingsManager.cs" />
+    <Compile Include="Environment\Configuration\IShellSettingsManagerEventHandler.cs" />
+    <Compile Include="Environment\Configuration\ShellSettings.cs" />
+    <Compile Include="Environment\Configuration\Impl\ShellSettingsSerializer.cs" />
+    <Compile Include="Environment\Configuration\TenantState.cs" />
+    <Compile Include="Environment\HostComponentsConfigModule.cs" />
+    <Compile Include="Environment\Impl\DefaultShell.cs" />
+    <Compile Include="Environment\Descriptor\Impl\DefaultShellDescriptorCache.cs" />
+    <Compile Include="Environment\Descriptor\Impl\DefaultShellDescriptorManager.cs" />
+    <Compile Include="Environment\Descriptor\IShellDescriptorCache.cs" />
+    <Compile Include="Environment\Descriptor\IShellDescriptorManager.cs" />
+    <Compile Include="Environment\Descriptor\Models\ShellDescriptor.cs" />
+    <Compile Include="Environment\Assemblies\IAssemblyNameResolver.cs" />
+    <Compile Include="Environment\HostContainerRegistry.cs" />
+    <Compile Include="Environment\IBuildManager.cs" />
+    <Compile Include="Environment\IHost.cs" />
+    <Compile Include="Environment\IHostContainer.cs" />
+    <Compile Include="Environment\IHostEnvironment.cs" />
+    <Compile Include="Environment\IHostLocalRestart.cs" />
+    <Compile Include="Environment\Impl\BuildManager.cs" />
+    <Compile Include="Environment\Impl\DefaultHost.cs" />
+    <Compile Include="Environment\Impl\DefaultHostContainer.cs" />
+    <Compile Include="Environment\Impl\DefaultHostEnvironment.cs" />
+    <Compile Include="Environment\Impl\DefaultHostLocalRestart.cs" />
+    <Compile Include="Environment\Impl\HostEnvironment.cs" />
+    <Compile Include="Environment\Impl\WebHostEnvironment.cs" />
+    <Compile Include="Environment\IShell.cs" />
+    <Compile Include="Environment\IShellEvents.cs" />
+    <Compile Include="Environment\IShim.cs" />
+    <Compile Include="Environment\ShellBuilders\ICompositionStrategy.cs" />
+    <Compile Include="Environment\ShellBuilders\ICompositionStrategyProvider.cs" />
+    <Compile Include="Environment\ShellBuilders\IMinimumShellDescriptorProvider.cs" />
+    <Compile Include="Environment\ShellBuilders\Impl\KernelMinimumShellDescriptorProvider.cs" />
+    <Compile Include="Environment\ShellBuilders\Impl\DefaultCompositionStrategy.cs" />
+    <Compile Include="Environment\ShellBuilders\Impl\DefaultServiceTypeHarvester.cs" />
+    <Compile Include="Environment\ShellBuilders\Impl\DefaultShellContainerFactory.cs" />
+    <Compile Include="Environment\ShellBuilders\Impl\DefaultShellContextFactory.cs" />
+    <Compile Include="Environment\ShellBuilders\IShellContainerFactory.cs" />
+    <Compile Include="Environment\ShellBuilders\IShellContainerRegistrations.cs" />
+    <Compile Include="Environment\ShellBuilders\IShellContextFactory.cs" />
+    <Compile Include="Environment\ShellBuilders\IServiceTypeHarvester.cs" />
+    <Compile Include="Environment\ShellBuilders\Models\BlueprintItem.cs" />
+    <Compile Include="Environment\ShellBuilders\Models\DependencyBlueprintItem.cs" />
+    <Compile Include="Environment\ShellBuilders\Models\ShellBlueprint.cs" />
+    <Compile Include="Environment\ShellBuilders\ShellContext.cs" />
+    <Compile Include="Environment\State\ContextState.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Exceptions\ExceptionExtensions.cs" />
+    <Compile Include="Extensions\ExtensionEntry.cs" />
+    <Compile Include="Extensions\ExtensionLoadingContext.cs" />
+    <Compile Include="Extensions\FeatureAttribute.cs" />
+    <Compile Include="Extensions\Folders\IExtensionFolders.cs" />
+    <Compile Include="Extensions\Folders\IExtensionHarvester.cs" />
+    <Compile Include="Extensions\Folders\Impl\DefaultExtensionHarvester.cs" />
+    <Compile Include="Extensions\Folders\Impl\ExtensionDescriptorSerializer.cs" />
+    <Compile Include="Extensions\Folders\Impl\ModuleFolders.cs" />
+    <Compile Include="Extensions\IExtensionDescriptorFilter.cs" />
+    <Compile Include="Extensions\IExtensionLoaderCoordinator.cs" />
+    <Compile Include="Extensions\IExtensionManager.cs" />
+    <Compile Include="Extensions\IExtensionMonitoringCoordinator.cs" />
+    <Compile Include="Extensions\IFeatureDescriptorFilter.cs" />
+    <Compile Include="Extensions\Impl\DefaultExtensionLoaderCoordinator.cs" />
+    <Compile Include="Extensions\Impl\DefaultExtensionManager.cs" />
+    <Compile Include="Extensions\Impl\DefaultExtensionMonitoringCoordinator.cs" />
+    <Compile Include="Extensions\Loaders\ExtensionLoaderBase.cs" />
+    <Compile Include="Extensions\Loaders\IExtensionLoader.cs" />
+    <Compile Include="Extensions\Loaders\Impl\PrecompiledExtensionLoader.cs" />
+    <Compile Include="Extensions\Loaders\Impl\ReferencedExtensionLoader.cs" />
+    <Compile Include="Extensions\Models\ExtensionDescriptor.cs" />
+    <Compile Include="Extensions\Models\Feature.cs" />
+    <Compile Include="Extensions\Models\FeatureDescriptor.cs" />
+    <Compile Include="Extensions\SuppressDependencyAttribute.cs" />
+    <Compile Include="FileSystems\AppData\IAppDataFolder.cs" />
+    <Compile Include="FileSystems\AppData\Impl\DefaultAppDataFolder.cs" />
+    <Compile Include="FileSystems\Application\IApplicationFolder.cs" />
+    <Compile Include="FileSystems\Application\Impl\DefaultApplicationFolder.cs" />
+    <Compile Include="FileSystems\Dependencies\DependencyDescriptor.cs" />
+    <Compile Include="FileSystems\Dependencies\IAssemblyProbingFolder.cs" />
+    <Compile Include="FileSystems\Dependencies\IDependenciesFolder.cs" />
+    <Compile Include="FileSystems\Dependencies\IExtensionDependenciesManager.cs" />
+    <Compile Include="FileSystems\Dependencies\Impl\DefaultAssemblyProbingFolder.cs" />
+    <Compile Include="FileSystems\Dependencies\Impl\DefaultDependenciesFolder.cs" />
+    <Compile Include="FileSystems\Dependencies\Impl\DefaultExtensionDependenciesManager.cs" />
+    <Compile Include="FileSystems\FolderBase.cs" />
+    <Compile Include="FileSystems\IFolder.cs" />
+    <Compile Include="FileSystems\VirtualPathProviderBase.cs" />
+    <Compile Include="FileSystems\VirtualPath\Impl\DefaultVirtualPathMonitor.cs" />
+    <Compile Include="FileSystems\VirtualPath\Impl\DefaultVirtualPathProvider.cs" />
+    <Compile Include="FileSystems\VirtualPath\IVirtualPathMonitor.cs" />
+    <Compile Include="FileSystems\VirtualPath\IVirtualPathProvider.cs" />
+    <Compile Include="IDependency.cs" />
+    <Compile Include="KernelBuilder.cs" />
+    <Compile Include="KernelModule.cs" />
+    <Compile Include="Localization\Impl\Text.cs" />
+    <Compile Include="Localization\LocalizationModule.cs" />
+    <Compile Include="Localization\LocalizationUtilities.cs" />
+    <Compile Include="Localization\LocalizedString.cs" />
+    <Compile Include="Localization\Localizer.cs" />
+    <Compile Include="Localization\NullLocalizer.cs" />
+    <Compile Include="Localization\Services\ICultureManager.cs" />
+    <Compile Include="Localization\Services\ICultureSelector.cs" />
+    <Compile Include="Localization\Services\ILocalizedStringManager.cs" />
+    <Compile Include="Localization\Services\Impl\CurrentCultureWorkContext.cs" />
+    <Compile Include="Localization\Services\Impl\DefaultCultureManager.cs" />
+    <Compile Include="Localization\Services\Impl\DefaultLocalizedStringManager.cs" />
+    <Compile Include="Localization\Services\Impl\TenantCultureSelector.cs" />
+    <Compile Include="Logging\BuilderExtensions.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Localization\IText.cs" />
+    <Compile Include="Logging\LoggingExtensions.cs" />
+    <Compile Include="Logging\NullLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RabbitException.cs" />
+    <Compile Include="Services\IClock.cs" />
+    <Compile Include="Services\Impl\DefaultClock.cs" />
+    <Compile Include="Settings\Impl\CurrentTenantWorkContext.cs" />
+    <Compile Include="Settings\Impl\DefaultTenant.cs" />
+    <Compile Include="Settings\Impl\DefaultTenantService.cs" />
+    <Compile Include="Settings\ITenant.cs" />
+    <Compile Include="Settings\ITenantService.cs" />
+    <Compile Include="Tasks\Impl\DefaultBackgroundService.cs" />
+    <Compile Include="Tasks\IBackgroundService.cs" />
+    <Compile Include="Tasks\IBackgroundServiceEvents.cs" />
+    <Compile Include="Tasks\IBackgroundTask.cs" />
+    <Compile Include="Tasks\Impl\DefaultSweepGenerator.cs" />
+    <Compile Include="Tasks\ISweepGenerator.cs" />
+    <Compile Include="Utility\DependencyOrdering.cs" />
+    <Compile Include="Utility\Extensions\InvokeExtensions.cs" />
+    <Compile Include="Utility\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Utility\Extensions\StringExtensions.cs" />
+    <Compile Include="Utility\Hash.cs" />
+    <Compile Include="Utility\PersistenceList.cs" />
+    <Compile Include="VersionRange.cs" />
+    <Compile Include="WorkContextExtensions.cs" />
+    <Compile Include="Works\Impl\DefaultWorkContextAccessor.cs" />
+    <Compile Include="Works\Impl\WorkContextImplementation.cs" />
+    <Compile Include="Works\IWorkContextAccessor.cs" />
+    <Compile Include="Works\IWorkContextEvents.cs" />
+    <Compile Include="Works\IWorkContextScope.cs" />
+    <Compile Include="Works\IWorkContextStateProvider.cs" />
+    <Compile Include="Works\Work.cs" />
+    <Compile Include="Works\WorkContext.cs" />
+    <Compile Include="Works\WorkContextModule.cs" />
+    <Compile Include="Works\WorkContextProperty.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Key.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
