@@ -15,10 +15,9 @@ namespace Rabbit.Components.Data.Migrators.Providers
 
         public IMigrationProcessor CreateMigrationProcessor(RunnerContext context, IDbConnection connection)
         {
-            var isClose = connection.State != ConnectionState.Open;
             try
             {
-                if (isClose)
+                if (connection.State != ConnectionState.Open)
                     connection.Open();
 
                 IMigrationGenerator migrationGenerator;
@@ -56,7 +55,7 @@ namespace Rabbit.Components.Data.Migrators.Providers
             }
             finally
             {
-                if (!isClose)
+                if (connection.State == ConnectionState.Open)
                     connection.Close();
             }
         }
