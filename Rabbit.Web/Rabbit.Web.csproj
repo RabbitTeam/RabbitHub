@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{784ABF93-8450-4376-B745-51C686E4D616}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rabbit.Web</RootNamespace>
+    <AssemblyName>Rabbit.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Rabbit.Web.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Rabbit.Web.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45_Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Net45_Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Rabbit.Web.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45_Release|AnyCPU'">
+    <OutputPath>bin\Net45_Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Rabbit.Web.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuilderExtensions.cs" />
+    <Compile Include="Environment\Extensions\ShellSettingsExtensions.cs" />
+    <Compile Include="Environment\Impl\WebHost.cs" />
+    <Compile Include="Environment\IWebHost.cs" />
+    <Compile Include="IHasRequestContext.cs" />
+    <Compile Include="IHttpContextAccessor.cs" />
+    <Compile Include="Impl\DefaultHttpContextAccessor.cs" />
+    <Compile Include="Impl\HttpContextWorkContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteExtension.cs" />
+    <Compile Include="Routes\HubRoute.cs" />
+    <Compile Include="Routes\Impl\DefaultRouteProvider.cs" />
+    <Compile Include="Routes\Impl\DefaultRoutePublisher.cs" />
+    <Compile Include="Routes\Impl\DefaultRunningShellTable.cs" />
+    <Compile Include="Routes\IRouteProvider.cs" />
+    <Compile Include="Routes\IRoutePublisher.cs" />
+    <Compile Include="Routes\IRoutePublisherEventHandler.cs" />
+    <Compile Include="Routes\IRunningShellTable.cs" />
+    <Compile Include="Routes\RouteDescriptor.cs" />
+    <Compile Include="Routes\ShellRoute.cs" />
+    <Compile Include="Routes\UrlPrefix.cs" />
+    <Compile Include="Routes\UrlPrefixAdjustedHttpContext.cs" />
+    <Compile Include="ServiceRouteExtension.cs" />
+    <Compile Include="ShellEvents.cs" />
+    <Compile Include="Themes\Impl\CurrentThemeWorkContext.cs" />
+    <Compile Include="Themes\Impl\DefaultThemeManager.cs" />
+    <Compile Include="Themes\Impl\SafeModeThemeSelector.cs" />
+    <Compile Include="Themes\Impl\TenantThemeSelector.cs" />
+    <Compile Include="Themes\IThemeManager.cs" />
+    <Compile Include="Themes\IThemeSelector.cs" />
+    <Compile Include="UI\Navigation\INavigationManager.cs" />
+    <Compile Include="UI\Navigation\INavigationProvider.cs" />
+    <Compile Include="UI\Navigation\MenuItem.cs" />
+    <Compile Include="UI\Navigation\NavigationBuilder.cs" />
+    <Compile Include="UI\Navigation\NavigationItemBuilder.cs" />
+    <Compile Include="Utility\Extensions\ExtensionDescriptorExtensions.cs" />
+    <Compile Include="Wcf\RabbitDependencyInjectionServiceBehavior.cs" />
+    <Compile Include="Wcf\RabbitInstanceContext.cs" />
+    <Compile Include="Wcf\RabbitInstanceProvider.cs" />
+    <Compile Include="Wcf\RabbitServiceHostFactory.cs" />
+    <Compile Include="WebModule.cs" />
+    <Compile Include="Utility\Extensions\WorkContextExtensions.cs" />
+    <Compile Include="Works\Impl\WebWorkContextAccessor.cs" />
+    <Compile Include="Works\IWebWorkContextAccessor.cs" />
+    <Compile Include="Works\WebWorkContext.cs" />
+    <Compile Include="Works\WebWorkContextModule.cs" />
+    <Compile Include="Works\WorkContextExtensions.cs" />
+    <Compile Include="Wrappers\HttpContextBaseWrapper.cs" />
+    <Compile Include="Wrappers\HttpRequestBaseWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rabbit.Kernel\Rabbit.Kernel.csproj">
+      <Project>{b9c6d026-75ed-49de-8889-4930a72590da}</Project>
+      <Name>Rabbit.Kernel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Key.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

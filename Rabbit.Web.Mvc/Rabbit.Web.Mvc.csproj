@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{894071A5-046A-4F86-BFC3-9121C7A73232}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rabbit.Web.Mvc</RootNamespace>
+    <AssemblyName>Rabbit.Web.Mvc</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Rabbit.Web.Mvc.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Rabbit.Web.Mvc.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45_Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Net45_Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Rabbit.Web.Mvc.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45_Release|AnyCPU'">
+    <OutputPath>bin\Net45_Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Rabbit.Web.Mvc.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UI\Navigation\DefaultNavigationManager.cs" />
+    <Compile Include="UI\Navigation\MenuFilter.cs" />
+    <Compile Include="UI\Navigation\MenuItemComparer.cs" />
+    <Compile Include="UI\Navigation\NavigationHelper.cs" />
+    <Compile Include="WebBuilderExtensions.cs" />
+    <Compile Include="CompositionStrategyProvider.cs" />
+    <Compile Include="DisplayManagement\Shapes\Impl\DefaultTagBuilderFactory.cs" />
+    <Compile Include="Extensions\Folders\CoreModuleFolders.cs" />
+    <Compile Include="Extensions\Folders\ThemeFolders.cs" />
+    <Compile Include="Extensions\Loaders\CoreExtensionLoader.cs" />
+    <Compile Include="Extensions\Loaders\RawThemeExtensionLoader.cs" />
+    <Compile Include="Mvc\Filters\IFilterProvider.cs" />
+    <Compile Include="Mvc\Filters\RabbitFilterProvider.cs" />
+    <Compile Include="Mvc\Html\HtmlHelperExtensions.cs" />
+    <Compile Include="Mvc\ModelBinders\IModelBinderProvider.cs" />
+    <Compile Include="Mvc\ModelBinders\IModelBinderPublisher.cs" />
+    <Compile Include="Mvc\ModelBinders\Impl\DefaultModelBinderPublisher.cs" />
+    <Compile Include="Mvc\ModelBinders\ModelBinderDescriptor.cs" />
+    <Compile Include="Mvc\MvcModule.cs" />
+    <Compile Include="Mvc\RabbitControllerFactory.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\IConfiguredEnginesCache.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\Impl\ConfiguredEnginesCache.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\Impl\LayoutAwareViewEngine.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\Impl\ThemeAwareViewEngine.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\IThemeAwareViewEngine.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\ThemeAwareViewEngineShim.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\ThemedViewResultFilter.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\ViewEngineCollectionWrapper.cs" />
+    <Compile Include="ShellContainerRegistrations.cs" />
+    <Compile Include="Themes\ThemedAttribute.cs" />
+    <Compile Include="Themes\ThemeFilter.cs" />
+    <Compile Include="UI\Admin\AdminAttribute.cs" />
+    <Compile Include="UI\Admin\AdminFilter.cs" />
+    <Compile Include="UI\Admin\AdminThemeSelector.cs" />
+    <Compile Include="UI\FlatPositionComparer.cs" />
+    <Compile Include="UI\IPage.cs" />
+    <Compile Include="UI\Zones\LayoutWorkContext.cs" />
+    <Compile Include="UI\Zones\ZoneHoldingBehavior.cs" />
+    <Compile Include="Utility\Extensions\DefaultExtensionTypes.cs" />
+    <Compile Include="DisplayManagement\Arguments.cs" />
+    <Compile Include="DisplayManagement\Descriptors\DefaultShapeTableManager.cs" />
+    <Compile Include="DisplayManagement\Descriptors\Interfaces.cs" />
+    <Compile Include="DisplayManagement\Descriptors\PlacementInfo.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ResourceBindingStrategy\StylesheetBindingStrategy.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeAlteration.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeAlterationBuilder.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeAttributeStrategy\ShapeAttributeBindingModule.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeAttributeStrategy\ShapeAttributeBindingStrategy.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeAttributeStrategy\ShapeAttributeOccurrence.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeDescriptor.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapePlacementStrategy\PlacementFile.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapePlacementStrategy\PlacementFileParser.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapePlacementStrategy\ShapePlacementParsingStrategy.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeTable.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeTableBuilder.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeTableLocator.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeTemplateStrategy\IShapeTemplateHarvester.cs" />
+    <Compile Include="DisplayManagement\Descriptors\ShapeTemplateStrategy\ShapeTemplateBindingStrategy.cs" />
+    <Compile Include="DisplayManagement\IDisplayHelperFactory.cs" />
+    <Compile Include="DisplayManagement\Implementation\DefaultDisplayManager.cs" />
+    <Compile Include="DisplayManagement\Implementation\DefaultShapeFactory.cs" />
+    <Compile Include="DisplayManagement\Implementation\DisplayContext.cs" />
+    <Compile Include="DisplayManagement\Implementation\DisplayHelper.cs" />
+    <Compile Include="DisplayManagement\Implementation\DisplayHelperFactory.cs" />
+    <Compile Include="DisplayManagement\Implementation\IDisplayManager.cs" />
+    <Compile Include="DisplayManagement\Implementation\IShapeDisplayEvents.cs" />
+    <Compile Include="DisplayManagement\Implementation\IShapeFactoryEvents.cs" />
+    <Compile Include="DisplayManagement\INamedEnumerable.cs" />
+    <Compile Include="DisplayManagement\IShape.cs" />
+    <Compile Include="DisplayManagement\IShapeDisplay.cs" />
+    <Compile Include="DisplayManagement\IShapeFactory.cs" />
+    <Compile Include="DisplayManagement\ShapeAttribute.cs" />
+    <Compile Include="DisplayManagement\ShapeDisplay.cs" />
+    <Compile Include="DisplayManagement\Shapes\Composite.cs" />
+    <Compile Include="DisplayManagement\Shapes\ITagBuilderFactory.cs" />
+    <Compile Include="DisplayManagement\Shapes\Shape.cs" />
+    <Compile Include="DisplayManagement\Shapes\ShapeDebugView.cs" />
+    <Compile Include="DisplayManagement\Shapes\ShapeMetadata.cs" />
+    <Compile Include="Environment\Extensions\ShellBlueprintExtensions.cs" />
+    <Compile Include="Environment\ShellBuilders\Models\ControllerBlueprint.cs" />
+    <Compile Include="Mvc\IViewPage.cs" />
+    <Compile Include="Mvc\Routes\Impl\StandardExtensionRouteProvider.cs" />
+    <Compile Include="Mvc\Spooling\HtmlStringWriter.cs" />
+    <Compile Include="Mvc\ViewEngines\IViewEngineProvider.cs" />
+    <Compile Include="Mvc\ViewEngines\Razor\Impl\DefaultRazorCompilationEvents.cs" />
+    <Compile Include="Mvc\ViewEngines\Razor\IRazorCompilationEvents.cs" />
+    <Compile Include="Mvc\ViewEngines\Razor\RazorCompilationEventsShim.cs" />
+    <Compile Include="Mvc\ViewEngines\Razor\RazorViewEngineProvider.cs" />
+    <Compile Include="Mvc\ViewEngines\Razor\WebViewPage.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\ILayoutAwareViewEngine.cs" />
+    <Compile Include="Mvc\ViewEngines\ThemeAwareness\ThemeViewLocationCache.cs" />
+    <Compile Include="WebApi\AutofacWebApiDependencyResolver.cs" />
+    <Compile Include="WebApi\AutofacWebApiDependencyScope.cs" />
+    <Compile Include="WebApi\DefaultWebApiHttpControllerSelector.cs" />
+    <Compile Include="WebApi\DefaultWebApiHttpHttpControllerActivator.cs" />
+    <Compile Include="WebApi\Extensions\RouteExtension.cs" />
+    <Compile Include="WebApi\Routes\IHttpRouteProvider.cs" />
+    <Compile Include="Utility\Extensions\WorkContextExtensions.cs" />
+    <Compile Include="WebApi\Routes\WebApiRoutePublisherEventHandler.cs" />
+    <Compile Include="Works\MvcWorkContext.cs" />
+    <Compile Include="Works\WorkContextExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Key.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rabbit.Kernel\Rabbit.Kernel.csproj">
+      <Project>{b9c6d026-75ed-49de-8889-4930a72590da}</Project>
+      <Name>Rabbit.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rabbit.Web\Rabbit.Web.csproj">
+      <Project>{784ABF93-8450-4376-B745-51C686E4D616}</Project>
+      <Name>Rabbit.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
