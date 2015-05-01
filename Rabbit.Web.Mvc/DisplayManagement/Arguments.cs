@@ -6,23 +6,49 @@ using System.Reflection;
 
 namespace Rabbit.Web.Mvc.DisplayManagement
 {
-    internal static class Arguments
+    /// <summary>
+    /// 参数构造辅助类。
+    /// </summary>
+    public static class Arguments
     {
+        /// <summary>
+        /// 构建类型为 <see cref="T"/> 的命名的参数集合。
+        /// </summary>
+        /// <typeparam name="T">参数类型。</typeparam>
+        /// <param name="arguments">值集合。</param>
+        /// <param name="names">键集合。</param>
+        /// <returns>命名的参数集合。</returns>
         public static INamedEnumerable<T> FromT<T>(IEnumerable<T> arguments, IEnumerable<string> names)
         {
             return new NamedEnumerable<T>(arguments, names);
         }
 
+        /// <summary>
+        /// 构建命名的参数集合。
+        /// </summary>
+        /// <param name="arguments">值集合。</param>
+        /// <param name="names">键集合。</param>
+        /// <returns>命名的参数集合。</returns>
         public static INamedEnumerable<object> From(IEnumerable<object> arguments, IEnumerable<string> names)
         {
             return new NamedEnumerable<object>(arguments, names);
         }
 
+        /// <summary>
+        /// 构建命名的参数集合。
+        /// </summary>
+        /// <param name="dictionary">字典表。</param>
+        /// <returns>命名的参数集合。</returns>
         public static INamedEnumerable<object> From(IDictionary<string, object> dictionary)
         {
             return From(dictionary.Values, dictionary.Keys);
         }
 
+        /// <summary>
+        /// 构建命名的参数集合。
+        /// </summary>
+        /// <param name="propertyObject">字典表。</param>
+        /// <returns>命名的参数集合。</returns>
         public static INamedEnumerable<object> From(object propertyObject)
         {
             var properties = propertyObject.GetType().GetProperties(BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public);
@@ -192,6 +218,10 @@ namespace Rabbit.Web.Mvc.DisplayManagement
             }
         }
 
+        /// <summary>
+        /// 构建一个空的命名的参数集合。
+        /// </summary>
+        /// <returns>命名的参数集合。</returns>
         public static INamedEnumerable<object> Empty()
         {
             return From(Enumerable.Empty<object>(), Enumerable.Empty<string>());
