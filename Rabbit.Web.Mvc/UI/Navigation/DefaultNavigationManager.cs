@@ -1,4 +1,5 @@
-﻿using Rabbit.Kernel.Logging;
+﻿using Rabbit.Kernel.Caching;
+using Rabbit.Kernel.Logging;
 using Rabbit.Web.UI.Navigation;
 using System;
 using System.Collections.Generic;
@@ -6,18 +7,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using MenuItem = Rabbit.Web.UI.Navigation.MenuItem;
 
 namespace Rabbit.Web.Mvc.UI.Navigation
 {
     internal sealed class DefaultNavigationManager : INavigationManager
     {
-        private readonly IEnumerable<INavigationProvider> _navigationProviders;
+        private readonly Lazy<IEnumerable<INavigationProvider>> _navigationProviders;
         private readonly UrlHelper _urlHelper;
+        private readonly ICacheManager _cacheManager;
+        private readonly ISignals _signals;
 
-        public DefaultNavigationManager(IEnumerable<INavigationProvider> navigationProviders, UrlHelper urlHelper)
+        public DefaultNavigationManager(Lazy<IEnumerable<INavigationProvider>> navigationProviders, UrlHelper urlHelper, ICacheManager cacheManager, ISignals signals)
         {
             _navigationProviders = navigationProviders;
             _urlHelper = urlHelper;
+            _cacheManager = cacheManager;
+            _signals = signals;
 
             Logger = NullLogger.Instance;
         }
@@ -231,50 +237,42 @@ namespace Rabbit.Web.Mvc.UI.Navigation
 
         private IEnumerable<IEnumerable<MenuItem>> GetSources(string menuName)
         {
-            foreach (var provider in _navigationProviders)
-            {
-                if (provider.MenuName != menuName)
-                    continue;
-                var builder = new NavigationBuilder();
-                IEnumerable<MenuItem> items = null;
-                try
-                {
-                    provider.GetNavigation(builder);
-                    items = builder.Build();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "在查询导航提供程序时发生了意外的错误。它被忽略，因为导航提供程序提供的菜单可能不完整。");
-                }
-                if (items != null)
-                {
-                    yield return items;
-                }
-            }
+            return GetNavigationBuilders(menuName).Select(i => i.Build());
         }
 
         private IEnumerable<IEnumerable<string>> GetImageSets(string menuName)
         {
-            foreach (var provider in _navigationProviders)
+            return GetNavigationBuilders(menuName).Select(navigationBuilder => navigationBuilder.BuildImageSets());
+        }
+
+        private IEnumerable<NavigationBuilder> GetNavigationBuilders(string menuName)
+        {
+            var list = new List<NavigationBuilder>();
+
+            foreach (var provider in _navigationProviders.Value.Where(i => i.MenuName == menuName))
             {
-                if (provider.MenuName != menuName)
-                    continue;
-                var builder = new NavigationBuilder();
-                IEnumerable<string> imageSets = null;
-                try
+                var providerProxy = provider;
+                var navigationBuilder = _cacheManager.Get(provider.GetType().FullName, context =>
                 {
-                    provider.GetNavigation(builder);
-                    imageSets = builder.BuildImageSets();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "意外的错误在查询导航提供商。它被忽略。由供应商提供的菜单可能不完整。");
-                }
-                if (imageSets != null)
-                {
-                    yield return imageSets;
-                }
+                    context.Monitor(
+                        _signals.When("Rabbit.Web.Mvc.Navigation." + providerProxy.GetType().FullName + ".Change"));
+                    var builder = new NavigationBuilder();
+                    try
+                    {
+                        providerProxy.GetNavigation(builder);
+                    }
+                    catch (Exception ex)
+                    {
+                        builder = null;
+                        Logger.Error(ex, "意外的错误在查询导航提供商。它被忽略。由供应商提供的菜单可能不完整。");
+                    }
+                    return builder;
+                });
+                if (navigationBuilder != null)
+                    list.Add(navigationBuilder);
             }
+
+            return list.ToArray();
         }
 
         private static IEnumerable<MenuItem> Merge(IEnumerable<IEnumerable<MenuItem>> sources)
