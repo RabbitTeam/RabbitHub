@@ -27,7 +27,7 @@ namespace Rabbit.Components.Data.Migrators
         /// <summary>
         /// 生命周期。
         /// </summary>
-        public ILifetimeScope LifetimeScope { private get; set; }
+        public ILifetimeScope LifetimeScope { get; set; }
 
         /// <summary>
         /// 功能模型。
