@@ -151,6 +151,7 @@ namespace Rabbit.Components.Data.EntityFramework.Impl
                     _transaction.Rollback();
                     _transaction.Dispose();
                     _transaction = null;
+                    _cancelled = false;
                 }
                 else
                 {

@@ -37,7 +37,7 @@ namespace Rabbit.Components.Logging.NLog
                 }
                 else
                 {
-                    builder.Append("|").Append(exception.Message);
+                    builder.Append("|").Append(exception.Message).AppendLine("StackTrace:" + exception.StackTrace);
                 }
 
                 if (exception.InnerException != null)
