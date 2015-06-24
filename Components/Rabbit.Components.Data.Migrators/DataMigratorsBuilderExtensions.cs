@@ -104,7 +104,7 @@ namespace Rabbit.Components.Data.Migrators
             }
             catch (Exception exception)
             {
-                Logger.Error("对租户 {0} 进行迁移时发生了一个或多个错误，错误信息：{1}", _shellSettings.Value, exception.Message);
+                Logger.Error("对租户 {0} 进行迁移时发生了一个或多个错误，错误信息：{1}", _shellSettings.Value.Name, exception.Message);
             }
         }
 
