@@ -83,8 +83,8 @@
       <Name>Rabbit.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rabbit.Components.Security\Rabbit.Components.Security.csproj">
-      <Project>{94617F0E-C463-4B5F-A67F-677E3ABC8F3C}</Project>
-      <Name>Rabbit.Components.Securitys</Name>
+      <Project>{94617f0e-c463-4b5f-a67f-677e3abc8f3c}</Project>
+      <Name>Rabbit.Components.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

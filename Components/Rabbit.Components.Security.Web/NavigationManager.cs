@@ -1,4 +1,5 @@
 ﻿using Rabbit.Components.Security.Permissions;
+using Rabbit.Kernel.Caching;
 using Rabbit.Kernel.Extensions;
 using Rabbit.Kernel.Logging;
 using Rabbit.Kernel.Works;
@@ -17,16 +18,20 @@ namespace Rabbit.Components.Security.Web
     [SuppressDependency("Rabbit.Web.Mvc.UI.Navigation.DefaultNavigationManager")]
     internal sealed class DefaultNavigationManager : INavigationManager
     {
-        private readonly IEnumerable<INavigationProvider> _navigationProviders;
+        private readonly Lazy<IEnumerable<INavigationProvider>> _navigationProviders;
         private readonly UrlHelper _urlHelper;
         private readonly IWorkContextAccessor _workContextAccessor;
+        private readonly ICacheManager _cacheManager;
+        private readonly ISignals _signals;
         private readonly IAuthorizationService _authorizationService;
 
-        public DefaultNavigationManager(IEnumerable<INavigationProvider> navigationProviders, UrlHelper urlHelper, IWorkContextAccessor workContextAccessor, IAuthorizationService authorizationService)
+        public DefaultNavigationManager(Lazy<IEnumerable<INavigationProvider>> navigationProviders, UrlHelper urlHelper, IWorkContextAccessor workContextAccessor, ICacheManager cacheManager, ISignals signals, IAuthorizationService authorizationService)
         {
             _navigationProviders = navigationProviders;
             _urlHelper = urlHelper;
             _workContextAccessor = workContextAccessor;
+            _cacheManager = cacheManager;
+            _signals = signals;
             _authorizationService = authorizationService;
 
             Logger = NullLogger.Instance;
@@ -235,10 +240,10 @@ namespace Rabbit.Components.Security.Web
 
         private IEnumerable<MenuItem> Reduce(IEnumerable<MenuItem> items, bool hasDebugShowAllMenuItems)
         {
+            var currentUser = _workContextAccessor.GetContext().GetState<IUser>("CurrentUser");
             foreach (var item in items.Where(item =>
             {
                 var permissions = (item.GetAttribute<IEnumerable<Permission>>("Permissions") ?? Enumerable.Empty<Permission>()).ToArray();
-                var currentUser = _workContextAccessor.GetContext().GetState<IUser>("CurrentUser");
                 return
                     hasDebugShowAllMenuItems ||
                     !permissions.Any() ||
@@ -252,50 +257,42 @@ namespace Rabbit.Components.Security.Web
 
         private IEnumerable<IEnumerable<MenuItem>> GetSources(string menuName)
         {
-            foreach (var provider in _navigationProviders)
-            {
-                if (provider.MenuName != menuName)
-                    continue;
-                var builder = new NavigationBuilder();
-                IEnumerable<MenuItem> items = null;
-                try
-                {
-                    provider.GetNavigation(builder);
-                    items = builder.Build();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "在查询导航提供程序时发生了意外的错误。它被忽略，因为导航提供程序提供的菜单可能不完整。");
-                }
-                if (items != null)
-                {
-                    yield return items;
-                }
-            }
+            return GetNavigationBuilders(menuName).Select(i => i.Build());
         }
 
         private IEnumerable<IEnumerable<string>> GetImageSets(string menuName)
         {
-            foreach (var provider in _navigationProviders)
+            return GetNavigationBuilders(menuName).Select(navigationBuilder => navigationBuilder.BuildImageSets());
+        }
+
+        private IEnumerable<NavigationBuilder> GetNavigationBuilders(string menuName)
+        {
+            var list = new List<NavigationBuilder>();
+
+            foreach (var provider in _navigationProviders.Value.Where(i => i.MenuName == menuName))
             {
-                if (provider.MenuName != menuName)
-                    continue;
-                var builder = new NavigationBuilder();
-                IEnumerable<string> imageSets = null;
-                try
+                var providerProxy = provider;
+                var navigationBuilder = _cacheManager.Get(provider.GetType().FullName, context =>
                 {
-                    provider.GetNavigation(builder);
-                    imageSets = builder.BuildImageSets();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "意外的错误在查询导航提供商。它被忽略。由供应商提供的菜单可能不完整。");
-                }
-                if (imageSets != null)
-                {
-                    yield return imageSets;
-                }
+                    context.Monitor(
+                        _signals.When("Rabbit.Web.Mvc.Navigation." + providerProxy.GetType().FullName + ".Change"));
+                    var builder = new NavigationBuilder();
+                    try
+                    {
+                        providerProxy.GetNavigation(builder);
+                    }
+                    catch (Exception ex)
+                    {
+                        builder = null;
+                        Logger.Error(ex, "意外的错误在查询导航提供商。它被忽略。由供应商提供的菜单可能不完整。");
+                    }
+                    return builder;
+                });
+                if (navigationBuilder != null)
+                    list.Add(navigationBuilder);
             }
+
+            return list.ToArray();
         }
 
         private static IEnumerable<MenuItem> Merge(IEnumerable<IEnumerable<MenuItem>> sources)
