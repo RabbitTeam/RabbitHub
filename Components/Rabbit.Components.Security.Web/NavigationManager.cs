@@ -48,9 +48,17 @@ namespace Rabbit.Components.Security.Web
         /// <returns>菜单项集合。</returns>
         public IEnumerable<MenuItem> BuildMenu(string menuName)
         {
-            var sources = GetSources(menuName);
+            var menus = _cacheManager.Get("BuildMenu_" + menuName, ctx =>
+            {
+                ctx.Monitor(_signals.When("Rabbit.Web.Mvc.Navigation.Change"));
+                ctx.Monitor(_signals.When("Rabbit.Web.Mvc.Navigation." + menuName + ".Change"));
+
+                var sources = GetSources(menuName);
+                return Merge(sources);
+            });
             const bool hasDebugShowAllMenuItems = false;
-            return FinishMenu(Reduce(Merge(sources), hasDebugShowAllMenuItems).ToArray());
+            menus = CloneMenus(menus);
+            return FinishMenu(Reduce(menus, hasDebugShowAllMenuItems).ToArray());
         }
 
         /// <summary>
@@ -274,6 +282,7 @@ namespace Rabbit.Components.Security.Web
                 var providerProxy = provider;
                 var navigationBuilder = _cacheManager.Get(provider.GetType().FullName, context =>
                 {
+                    context.Monitor(_signals.When("Rabbit.Web.Mvc.Navigation.Change"));
                     context.Monitor(
                         _signals.When("Rabbit.Web.Mvc.Navigation." + providerProxy.GetType().FullName + ".Change"));
                     var builder = new NavigationBuilder();
@@ -295,7 +304,7 @@ namespace Rabbit.Components.Security.Web
             return list.ToArray();
         }
 
-        private static IEnumerable<MenuItem> Merge(IEnumerable<IEnumerable<MenuItem>> sources)
+        private IEnumerable<MenuItem> Merge(IEnumerable<IEnumerable<MenuItem>> sources)
         {
             var comparer = new MenuItemComparer();
             var orderer = new FlatPositionComparer();
@@ -309,7 +318,7 @@ namespace Rabbit.Components.Security.Web
                 .SelectMany(positionGroup => positionGroup.OrderBy(item => item.Text == null ? string.Empty : item.Text.TextHint));
         }
 
-        private static MenuItem Join(IEnumerable<MenuItem> items)
+        private MenuItem Join(IEnumerable<MenuItem> items)
         {
             var list = items.ToArray();
 
@@ -341,6 +350,36 @@ namespace Rabbit.Components.Security.Web
                                            : string.IsNullOrEmpty(pos)
                                                  ? agg
                                                  : comparer.Compare(agg, pos) < 0 ? agg : pos);
+        }
+
+        private IEnumerable<MenuItem> CloneMenus(IEnumerable<MenuItem> menus)
+        {
+            return menus == null ? null : menus.Select(CloneMenu).Where(i => i != null).ToArray();
+        }
+
+        private MenuItem CloneMenu(MenuItem menu)
+        {
+            if (menu == null)
+                return null;
+
+            var newMenu = new MenuItem
+            {
+                Classes = menu.Classes,
+                Href = menu.Href,
+                Icon = menu.Icon,
+                Items = CloneMenus(menu.Items),
+                LocalNavigation = menu.LocalNavigation,
+                Position = menu.Position,
+                RouteValues = menu.RouteValues,
+                Selected = menu.Selected,
+                Text = menu.Text,
+                Url = menu.Url
+            };
+            foreach (var attribute in menu.Attributes)
+            {
+                newMenu.SetAttribute(attribute.Key, attribute.Value);
+            }
+            return newMenu;
         }
 
         #endregion Private Method
