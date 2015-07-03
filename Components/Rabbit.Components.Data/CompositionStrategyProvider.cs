@@ -4,6 +4,7 @@ using Rabbit.Kernel.Environment.Configuration;
 using Rabbit.Kernel.Environment.ShellBuilders;
 using Rabbit.Kernel.Extensions.Models;
 using System;
+using System.Linq;
 
 namespace Rabbit.Components.Data
 {
@@ -27,7 +28,7 @@ namespace Rabbit.Components.Data
 
         private static bool IsRecord(Type type)
         {
-            return !type.IsAbstract && type.IsClass && typeof(IEntity).IsAssignableFrom(type);
+            return !type.IsAbstract && type.IsClass && (typeof(IEntity).IsAssignableFrom(type) || type.GetCustomAttributes(typeof(EntityAttribute), false).Any());
         }
 
         private static RecordBlueprint BuildRecord(Type type, Feature feature, ShellSettings settings)

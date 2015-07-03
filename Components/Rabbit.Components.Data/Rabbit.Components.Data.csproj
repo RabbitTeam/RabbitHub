@@ -80,6 +80,7 @@
     <Compile Include="DataAnnotations\ForeignKeyAttribute.cs" />
     <Compile Include="DataAnnotations\InversePropertyAttribute.cs" />
     <Compile Include="DataAnnotations\NotMappedAttribute.cs" />
+    <Compile Include="EntityAttribute.cs" />
     <Compile Include="IRepositoryInitializer.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IRepository.cs" />

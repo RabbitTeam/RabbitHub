@@ -45,7 +45,7 @@ namespace Rabbit.Components.Data.Migrators
         /// </summary>
         /// <typeparam name="T">记录类型。</typeparam>
         /// <returns>表名称。</returns>
-        protected string TableName<T>() where T : class ,IEntity
+        protected string TableName<T>() where T : class
         {
             return TableName(typeof(T));
         }
