@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
+#if Net45
+using System.Threading;
+using System.Threading.Tasks;
+#endif
+
 namespace Rabbit.Components.Data
 {
     /// <summary>
@@ -141,10 +146,29 @@ namespace Rabbit.Components.Data
 
         #endregion Delete
 
+        #region Flush
+
         /// <summary>
         /// 刷新缓存区。
         /// </summary>
         void Flush();
+
+#if Net45
+        /// <summary>
+        /// 刷新缓存区。
+        /// </summary>
+        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
+        Task<int> FlushAsync();
+
+        /// <summary>
+        /// 刷新缓存区。
+        /// </summary>
+        /// <param name="cancellationToken">一个System.Threading.CancellationToken以等待任务完成观察。</param>
+        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
+        Task<int> FlushAsync(CancellationToken cancellationToken);
+#endif
+
+        #endregion Flush
     }
 
     /// <summary>
@@ -159,7 +183,7 @@ namespace Rabbit.Components.Data
         /// <param name="repository">仓储。</param>
         /// <param name="entities">实体信息集合。</param>
         /// <exception cref="ArgumentNullException"><paramref name="repository"/> 或 <paramref name="entities"/> 为 null。</exception>
-        public static void CreateRange<T>(this IRepository<T> repository, params T[] entities) where T : class,IEntity
+        public static void CreateRange<T>(this IRepository<T> repository, params T[] entities) where T : class, IEntity
         {
             if (repository == null)
                 throw new ArgumentNullException("repository");
@@ -179,7 +203,7 @@ namespace Rabbit.Components.Data
         /// <param name="repository">仓储。</param>
         /// <param name="entities">实体集合。</param>
         /// <exception cref="ArgumentNullException"><paramref name="repository"/> 或 <paramref name="entities"/> 为 null。</exception>
-        public static void CreateOrUpdateRange<T>(this IRepository<T> repository, params T[] entities) where T : class,IEntity
+        public static void CreateOrUpdateRange<T>(this IRepository<T> repository, params T[] entities) where T : class, IEntity
         {
             if (repository == null)
                 throw new ArgumentNullException("repository");
@@ -200,7 +224,7 @@ namespace Rabbit.Components.Data
         /// <param name="id">标识。</param>
         /// <returns>是否存在。</returns>
         /// <exception cref="ArgumentNullException"><paramref name="repository"/> 为 null。</exception>
-        public static bool Contains<T>(this IRepository<T> repository, long id) where T : class,IEntity
+        public static bool Contains<T>(this IRepository<T> repository, long id) where T : class, IEntity
         {
             if (repository == null)
                 throw new ArgumentNullException("repository");
@@ -216,7 +240,7 @@ namespace Rabbit.Components.Data
         /// <param name="id">标识。</param>
         /// <returns>实体。</returns>
         /// <exception cref="ArgumentNullException"><paramref name="repository"/> 为 null。</exception>
-        public static T Get<T>(this IRepository<T> repository, long id) where T : class,IEntity
+        public static T Get<T>(this IRepository<T> repository, long id) where T : class, IEntity
         {
             if (repository == null)
                 throw new ArgumentNullException("repository");
@@ -232,7 +256,7 @@ namespace Rabbit.Components.Data
         /// <param name="repository">仓储。</param>
         /// <param name="updateAction">根据实体主键获取到对应实体进行更新动作。（找不到实体则不执行更新动作）</param>
         /// <exception cref="ArgumentNullException"><paramref name="repository"/> 或 <paramref name="updateAction"/> 或 <paramref name="ids"/> 为 null。</exception>
-        public static void Update<T>(this IRepository<T> repository, Action<T> updateAction, params long[] ids) where T : class,IEntity
+        public static void Update<T>(this IRepository<T> repository, Action<T> updateAction, params long[] ids) where T : class, IEntity
         {
             if (repository == null)
                 throw new ArgumentNullException("repository");
@@ -254,7 +278,7 @@ namespace Rabbit.Components.Data
         /// <param name="repository">仓储。</param>
         /// <param name="ids">标识组。</param>
         /// <exception cref="ArgumentNullException"><paramref name="repository"/> 或 <paramref name="ids"/> 为 null。</exception>
-        public static void Delete<T>(this IRepository<T> repository, params long[] ids) where T : class,IEntity
+        public static void Delete<T>(this IRepository<T> repository, params long[] ids) where T : class, IEntity
         {
             if (repository == null)
                 throw new ArgumentNullException("repository");

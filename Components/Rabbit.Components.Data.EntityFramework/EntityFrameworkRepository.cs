@@ -127,32 +127,28 @@ namespace Rabbit.Components.Data.EntityFramework
             DbContext.SaveChanges();
         }
 
-        #endregion Overrides of RepositoryBase<T>
-
 #if Net45
-
         /// <summary>
         /// 刷新缓存区。
         /// </summary>
-        /// <typeparam name="T">实体类型。</typeparam>
-        /// <param name="cancellationToken">一个System.Threading.CancellationToken以等待任务完成观察。</param>
         /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
-        internal Task<int> FlushAsync(CancellationToken cancellationToken)
-        {
-            return DbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        /// <summary>
-        /// 刷新缓存区。
-        /// </summary>
-        /// <typeparam name="T">实体类型。</typeparam>
-        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
-        internal Task<int> FlushAsync()
+        public override Task<int> FlushAsync()
         {
             return DbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// 刷新缓存区。
+        /// </summary>
+        /// <param name="cancellationToken">一个System.Threading.CancellationToken以等待任务完成观察。</param>
+        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
+        public override Task<int> FlushAsync(CancellationToken cancellationToken)
+        {
+            return DbContext.SaveChangesAsync(cancellationToken);
+        }
 #endif
+
+        #endregion Overrides of RepositoryBase<T>
     }
 
     /// <summary>
@@ -160,37 +156,6 @@ namespace Rabbit.Components.Data.EntityFramework
     /// </summary>
     public static class RepositoryExtensions
     {
-#if Net45
-        /// <summary>
-        /// 刷新缓存区。
-        /// </summary>
-        /// <typeparam name="T">实体类型。</typeparam>
-        /// <param name="repository">仓储实例。</param>
-        /// <param name="cancellationToken">一个System.Threading.CancellationToken以等待任务完成观察。</param>
-        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
-        public static Task<int> FlushAsync<T>(this IRepository<T> repository, CancellationToken cancellationToken) where T : class
-        {
-            var entityFrameworkRepository = repository.NotNull("repository") as EntityFrameworkRepository<T>;
-            if (entityFrameworkRepository == null)
-                throw new NotSupportedException("当前仓储不支持异步刷新缓存区。");
-            return entityFrameworkRepository.FlushAsync(cancellationToken);
-        }
-
-        /// <summary>
-        /// 刷新缓存区。
-        /// </summary>
-        /// <typeparam name="T">实体类型。</typeparam>
-        /// <param name="repository">仓储实例。</param>
-        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
-        public static Task<int> FlushAsync<T>(this IRepository<T> repository) where T : class
-        {
-            var entityFrameworkRepository = repository.NotNull("repository") as EntityFrameworkRepository<T>;
-            if (entityFrameworkRepository == null)
-                throw new NotSupportedException("当前仓储不支持异步刷新缓存区。");
-            return entityFrameworkRepository.FlushAsync();
-        }
-#endif
-
         /// <summary>
         /// 更新实体的单个属性。
         /// </summary>
@@ -199,7 +164,7 @@ namespace Rabbit.Components.Data.EntityFramework
         /// <param name="repository">仓储。</param>
         /// <param name="entity">实体。</param>
         /// <param name="expression">选择属性表达式。</param>
-        public static void UpdateProperty<TEntity, TProperty>(this IRepository<TEntity> repository, TEntity entity, Expression<Func<TEntity, TProperty>> expression) where TEntity : class,IEntity, new()
+        public static void UpdateProperty<TEntity, TProperty>(this IRepository<TEntity> repository, TEntity entity, Expression<Func<TEntity, TProperty>> expression) where TEntity : class, IEntity, new()
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");

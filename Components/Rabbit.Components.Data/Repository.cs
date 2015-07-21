@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
+#if Net45
+using System.Threading;
+using System.Threading.Tasks;
+#endif
+
 namespace Rabbit.Components.Data
 {
     /// <summary>
@@ -176,6 +181,21 @@ namespace Rabbit.Components.Data
         /// 刷新缓存区。
         /// </summary>
         public abstract void Flush();
+
+#if Net45
+        /// <summary>
+        /// 刷新缓存区。
+        /// </summary>
+        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
+        public abstract Task<int> FlushAsync();
+
+        /// <summary>
+        /// 刷新缓存区。
+        /// </summary>
+        /// <param name="cancellationToken">一个System.Threading.CancellationToken以等待任务完成观察。</param>
+        /// <returns>表示异步任务保存操作，任务结果包含写入对象的数量。</returns>
+        public abstract Task<int> FlushAsync(CancellationToken cancellationToken);
+#endif
 
         #endregion Implementation of IRepository<T>
 
