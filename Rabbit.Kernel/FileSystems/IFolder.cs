@@ -6,7 +6,7 @@ namespace Rabbit.Kernel.FileSystems
     /// <summary>
     /// 一个抽象的文件夹。
     /// </summary>
-    public interface IFolder : IVirtualPathProvider
+    public interface IFolder : IVirtualPathProviderBase, IVolatileProvider
     {
         /// <summary>
         /// 创建文件。

@@ -21,6 +21,7 @@ namespace Rabbit.Components.Bus.SignalR
         /// </summary>
         /// <param name="busBuilder">总线建设者。</param>
         /// <param name="hostUrl">主机 Url。</param>
+        /// <param name="path">路径。</param>
         public static void UseSignalR(this BuilderExtensions.IBusBuilder busBuilder, string hostUrl, string path)
         {
             HostUrl = hostUrl.NotEmptyOrWhiteSpace("hostUrl");

@@ -271,7 +271,7 @@ namespace Rabbit.Kernel
         /// <param name="features">外壳特性描述符。</param>
         public void GetFeatures(ICollection<ShellFeature> features)
         {
-            foreach (var feature in Features.Distinct().Select(i => new ShellFeature { Name = i }))
+            foreach (var feature in Features.Select(i => new ShellFeature { Name = i }))
             {
                 features.Add(feature);
             }
