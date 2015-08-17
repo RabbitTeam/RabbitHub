@@ -12,7 +12,7 @@ namespace Rabbit.Web.Mvc.DisplayManagement
     public static class Arguments
     {
         /// <summary>
-        /// 构建类型为 <see cref="T"/> 的命名的参数集合。
+        /// 构建类型为 <typeparamref name="T"/> 的命名的参数集合。
         /// </summary>
         /// <typeparam name="T">参数类型。</typeparam>
         /// <param name="arguments">值集合。</param>

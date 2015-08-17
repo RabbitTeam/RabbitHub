@@ -2,7 +2,7 @@
 
 namespace Rabbit.Kernel.FileSystems.VirtualPath.Impl
 {
-    internal sealed class DefaultVirtualPathProvider : VirtualPathProviderBase
+    internal sealed class DefaultVirtualPathProvider : VirtualPathProviderBase, IVirtualPathProvider
     {
         #region Constructor
 

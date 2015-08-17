@@ -43,7 +43,7 @@ namespace Rabbit.Kernel.Environment.Descriptor.Impl
             List.Init("~/App_Data/descriptors.dat", applicationFolder);
 
             var descriptor = List.OrderByDescending(i => i.SerialNumber).FirstOrDefault();
-            _serialNumber = descriptor == null ? 0 : descriptor.SerialNumber + 1;
+            _serialNumber = descriptor == null ? 0 : descriptor.SerialNumber;
 
             T = NullLocalizer.Instance;
         }
@@ -61,8 +61,6 @@ namespace Rabbit.Kernel.Environment.Descriptor.Impl
             //得到当前租户的外壳描述符。
             var descriptor = GetCurrentShellDescriptor();
 
-            //得到最新的功能描述符名称集合。
-            var features = GetFeatures();
             //如果之前的记录与最新的功能描述符相等直接返回。
             if (descriptor != null)
                 return (ShellDescriptor)descriptor;
@@ -74,11 +72,13 @@ namespace Rabbit.Kernel.Environment.Descriptor.Impl
             if (descriptor != null)
                 DeleteShellDescriptor(descriptor, false);*/
 
+            //得到最新的功能描述符名称集合。
+            var features = GetFeatures();
             //添加一个新的描述符。
             descriptor = new ShellDescriptorEntry
             {
                 ShellName = _settings.Name,
-                Features = features.Select(i => new ShellFeature { Name = i }).ToArray(),
+                Features = features.Select(i => new ShellFeature { Name = i }).Distinct(new ShellFeatureEqualityComparer()).ToArray(),
                 SerialNumber = GetSerialNumber()
             };
 
@@ -95,12 +95,26 @@ namespace Rabbit.Kernel.Environment.Descriptor.Impl
         /// <param name="enabledFeatures">需要开启的特性。</param>
         public void UpdateShellDescriptor(int serialNumber, IEnumerable<ShellFeature> enabledFeatures)
         {
-            var descriptor = GetCurrentShellDescriptor();
-
-            if (descriptor == null || serialNumber != descriptor.SerialNumber)
-                throw new InvalidOperationException(T("外壳描述符的序列号无效。").ToString());
-
-            UpdateShellDescriptor(descriptor, enabledFeatures);
+            if (enabledFeatures == null)
+                DeleteShellDescriptor();
+            else
+            {
+                var features = enabledFeatures.Distinct(new ShellFeatureEqualityComparer()).ToArray();
+                var descriptor = new ShellDescriptor
+                {
+                    SerialNumber = serialNumber,
+                    Features = features
+                };
+                List.Add(new ShellDescriptorEntry
+                {
+                    Features = features,
+                    SerialNumber = descriptor.SerialNumber,
+                    ShellName = _settings.Name
+                });
+                List.Save();
+                foreach (var handler in _events)
+                    handler.Changed(descriptor, _settings.Name);
+            }
         }
 
         #endregion Implementation of IShellDescriptorManager
@@ -116,39 +130,33 @@ namespace Rabbit.Kernel.Environment.Descriptor.Impl
             return features;
         }
 
-        private void DeleteShellDescriptor(ShellDescriptorEntry descriptor, bool isSave = true)
+        private void DeleteShellDescriptor()
         {
-            if (descriptor == null)
-                throw new InvalidOperationException(T("找不到租户 '{0}' 的外壳描述符。", _settings.Name).ToString());
-
-            var model = List.FirstOrDefault(
-                i => string.Equals(i.ShellName, descriptor.ShellName, StringComparison.OrdinalIgnoreCase));
+            var model = List.FirstOrDefault(i => string.Equals(i.ShellName, _settings.Name, StringComparison.OrdinalIgnoreCase));
             if (model == null)
                 return;
             List.Remove(model);
-            if (isSave)
-                List.Save();
         }
 
-        private void UpdateShellDescriptor(ShellDescriptorEntry descriptor, IEnumerable<ShellFeature> enabledFeatures)
-        {
-            if (descriptor == null)
-                throw new InvalidOperationException(T("找不到租户 '{0}' 的外壳描述符。", _settings.Name).ToString());
+        /*        private void UpdateShellDescriptor(ShellDescriptorEntry descriptor, IEnumerable<ShellFeature> enabledFeatures)
+                {
+                    if (descriptor == null)
+                        throw new InvalidOperationException(T("找不到租户 '{0}' 的外壳描述符。", _settings.Name).ToString());
 
-            if (enabledFeatures != null)
-            {
-                descriptor.Features = enabledFeatures.ToArray();
-            }
-            else
-            {
-                DeleteShellDescriptor(descriptor, false);
-            }
+                    if (enabledFeatures != null)
+                    {
+                        descriptor.Features = enabledFeatures.ToArray();
+                    }
+                    else
+                    {
+                        DeleteShellDescriptor(descriptor, false);
+                    }
 
-            List.Save();
+                    List.Save();
 
-            foreach (var handler in _events)
-                handler.Changed((ShellDescriptor)descriptor, _settings.Name);
-        }
+                    foreach (var handler in _events)
+                        handler.Changed((ShellDescriptor)descriptor, _settings.Name);
+                }*/
 
         private static int GetSerialNumber()
         {

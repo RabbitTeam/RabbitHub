@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rabbit.Kernel.Bus.Impl
 {
-    internal sealed class DefaultMessageDispatcher : IMessageDispatcher
+    internal sealed class DefaultMessageDispatcher : IMessageDispatcher, IDisposable
     {
         #region Field
 
@@ -153,5 +153,17 @@ namespace Rabbit.Kernel.Bus.Impl
         }
 
         #endregion Help Class
+
+        #region Implementation of IDisposable
+
+        /// <summary>
+        /// 执行与释放或重置非托管资源相关的应用程序定义的任务。
+        /// </summary>
+        public void Dispose()
+        {
+            ClearWaitDispatch();
+        }
+
+        #endregion Implementation of IDisposable
     }
 }

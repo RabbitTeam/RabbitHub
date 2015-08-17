@@ -71,6 +71,7 @@ namespace Rabbit.Kernel.Environment.ShellBuilders.Impl
 
             if (currentDescriptor != null && knownDescriptor.SerialNumber != currentDescriptor.SerialNumber)
             {
+                currentDescriptor.Features = currentDescriptor.Features.Distinct(new ShellFeatureEqualityComparer()).ToArray();
                 Logger.Information("获得较新的外壳描述符。重新构建外壳容器。");
 
                 _shellDescriptorCache.Store(settings.Name, currentDescriptor);
@@ -98,7 +99,7 @@ namespace Rabbit.Kernel.Environment.ShellBuilders.Impl
             return new ShellDescriptor
             {
                 SerialNumber = -1,
-                Features = features.ToArray()
+                Features = features.Distinct(new ShellFeatureEqualityComparer()).ToArray()
             };
         }
 

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Rabbit.Kernel.FileSystems
 {
-    internal abstract class VirtualPathProviderBase : Component, IVirtualPathProvider
+    internal abstract class VirtualPathProviderBase : Component, IVirtualPathProviderBase
     {
         #region Field
 
