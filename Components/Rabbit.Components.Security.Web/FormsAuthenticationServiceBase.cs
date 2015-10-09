@@ -64,7 +64,7 @@ namespace Rabbit.Components.Security.Web
         /// </summary>
         /// <param name="user">用户模型。</param>
         /// <param name="createPersistentCookie">是否创建持久的Cookie。</param>
-        public void SignIn(IUser user, bool createPersistentCookie)
+        public virtual void SignIn(IUser user, bool createPersistentCookie)
         {
             var now = _clock.UtcNow.ToLocalTime();
 
@@ -114,7 +114,7 @@ namespace Rabbit.Components.Security.Web
         /// <summary>
         /// 登出。
         /// </summary>
-        public void SignOut()
+        public virtual void SignOut()
         {
             _signedInUser = null;
             _isAuthenticated = false;
