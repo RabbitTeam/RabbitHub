@@ -62,35 +62,6 @@ namespace Rabbit.Kernel.Environment.Configuration.Impl
             }
         }
 
-        public static ShellSettings ParseSettings2(string text)
-        {
-            using (var settings = new StringReader(text))
-            {
-                var shellSettings = new ShellSettings();
-                string setting;
-                while ((setting = settings.ReadLine()) != null)
-                {
-                    if (string.IsNullOrWhiteSpace(setting))
-                        continue;
-
-                    var separatorIndex = setting.IndexOf(Separator);
-                    if (separatorIndex == -1)
-                        continue;
-
-                    var key = setting.Substring(0, separatorIndex).Trim();
-                    var value = setting.Substring(separatorIndex + 1).Trim();
-
-                    //值等于空值则跳过。
-                    if (value.Equals(EmptyValue, StringComparison.OrdinalIgnoreCase))
-                        continue;
-
-                    shellSettings[key] = value;
-                }
-
-                return shellSettings;
-            }
-        }
-
         /// <summary>
         /// 将外壳设置信息组成文本。
         /// </summary>
