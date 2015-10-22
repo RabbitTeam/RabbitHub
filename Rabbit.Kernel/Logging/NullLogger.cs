@@ -3,7 +3,7 @@ using System;
 namespace Rabbit.Kernel.Logging
 {
     /// <summary>
-    /// Ò»¸ö¿ÕµÄÈÕÖ¾¼ÇÂ¼Æ÷¡£
+    /// ä¸€ä¸ªç©ºçš„æ—¥å¿—è®°å½•å™¨ã€‚
     /// </summary>
     public class NullLogger : ILogger
     {
@@ -16,7 +16,7 @@ namespace Rabbit.Kernel.Logging
         #region Property
 
         /// <summary>
-        /// ¼ÇÂ¼Æ÷ÊµÀı¡£
+        /// è®°å½•å™¨å®ä¾‹ã€‚
         /// </summary>
         public static ILogger Instance
         {
@@ -28,22 +28,22 @@ namespace Rabbit.Kernel.Logging
         #region Implementation of ILogger
 
         /// <summary>
-        /// ÅĞ¶ÏÈÕÖ¾¼ÇÂ¼Æ÷ÊÇ·ñ¿ªÆô¡£
+        /// åˆ¤æ–­æ—¥å¿—è®°å½•å™¨æ˜¯å¦å¼€å¯ã€‚
         /// </summary>
-        /// <param name="level">ÈÕÖ¾µÈ¼¶¡£</param>
-        /// <returns>Èç¹û¿ªÆô·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£</returns>
+        /// <param name="level">æ—¥å¿—ç­‰çº§ã€‚</param>
+        /// <returns>å¦‚æœå¼€å¯è¿”å›trueï¼Œå¦åˆ™è¿”å›falseã€‚</returns>
         public bool IsEnabled(LogLevel level)
         {
             return false;
         }
 
         /// <summary>
-        /// ¼ÇÂ¼ÈÕÖ¾¡£
+        /// è®°å½•æ—¥å¿—ã€‚
         /// </summary>
-        /// <param name="level">ÈÕÖ¾µÈ¼¶¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="level">æ—¥å¿—ç­‰çº§ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public void Log(LogLevel level, Exception exception, string format, params object[] args)
         {
         }

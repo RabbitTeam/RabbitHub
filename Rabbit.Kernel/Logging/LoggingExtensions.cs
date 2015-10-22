@@ -4,607 +4,607 @@ using System;
 namespace Rabbit.Kernel.Logging
 {
     /// <summary>
-    /// ÈÕÖ¾¼ÇÂ¼Æ÷À©Õ¹·½·¨¡£
+    /// æ—¥å¿—è®°å½•å™¨æ‰©å±•æ–¹æ³•ã€‚
     /// </summary>
     public static class LoggingExtenions
     {
         #region Public Method
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Debug(this ILogger logger, string message)
         {
             FilteredLog(logger, LogLevel.Debug, null, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Information(this ILogger logger, string message)
         {
             FilteredLog(logger, LogLevel.Information, null, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Warning(this ILogger logger, string message)
         {
             FilteredLog(logger, LogLevel.Warning, null, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Error(this ILogger logger, string message)
         {
             FilteredLog(logger, LogLevel.Error, null, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Fatal(this ILogger logger, string message)
         {
             FilteredLog(logger, LogLevel.Fatal, null, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Debug(this ILogger logger, Exception exception, string message)
         {
             FilteredLog(logger, LogLevel.Debug, exception, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Information(this ILogger logger, Exception exception, string message)
         {
             FilteredLog(logger, LogLevel.Information, exception, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Warning(this ILogger logger, Exception exception, string message)
         {
             FilteredLog(logger, LogLevel.Warning, exception, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Error(this ILogger logger, Exception exception, string message)
         {
             FilteredLog(logger, LogLevel.Error, exception, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Fatal(this ILogger logger, Exception exception, string message)
         {
             FilteredLog(logger, LogLevel.Fatal, exception, message, null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Debug(this ILogger logger, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Debug, null, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Information(this ILogger logger, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Information, null, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Warning(this ILogger logger, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Warning, null, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Error(this ILogger logger, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Error, null, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Fatal(this ILogger logger, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Fatal, null, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Debug(this ILogger logger, Exception exception, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Debug, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Information(this ILogger logger, Exception exception, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Information, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Warning(this ILogger logger, Exception exception, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Warning, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Error(this ILogger logger, Exception exception, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Error, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Fatal(this ILogger logger, Exception exception, Func<string> message)
         {
             FilteredLog(logger, LogLevel.Fatal, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Debug(this ILogger logger, Func<Exception> exception, Func<string> message)
         {
             FilteredLogFuncException(logger, LogLevel.Debug, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Information(this ILogger logger, Func<Exception> exception, Func<string> message)
         {
             FilteredLogFuncException(logger, LogLevel.Information, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Warning(this ILogger logger, Func<Exception> exception, Func<string> message)
         {
             FilteredLogFuncException(logger, LogLevel.Warning, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Error(this ILogger logger, Func<Exception> exception, Func<string> message)
         {
             FilteredLogFuncException(logger, LogLevel.Error, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Fatal(this ILogger logger, Func<Exception> exception, Func<string> message)
         {
             FilteredLogFuncException(logger, LogLevel.Fatal, exception, message);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Debug(this ILogger logger, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Debug, null, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Information(this ILogger logger, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Information, null, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Warning(this ILogger logger, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Warning, null, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Error(this ILogger logger, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Error, null, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Fatal(this ILogger logger, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Fatal, null, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Debug(this ILogger logger, Exception exception, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Debug, exception, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Information(this ILogger logger, Exception exception, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Information, exception, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Warning(this ILogger logger, Exception exception, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Warning, exception, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Error(this ILogger logger, Exception exception, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Error, exception, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Fatal(this ILogger logger, Exception exception, string format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Fatal, exception, format, args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Debug(this ILogger logger, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Debug, null, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Information(this ILogger logger, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Information, null, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Warning(this ILogger logger, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Warning, null, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Error(this ILogger logger, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Error, null, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Fatal(this ILogger logger, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Fatal, null, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Debug(this ILogger logger, Exception exception, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Debug, exception, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Information(this ILogger logger, Exception exception, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Information, exception, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Warning(this ILogger logger, Exception exception, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Warning, exception, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Error(this ILogger logger, Exception exception, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Error, exception, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="message">ÏûÏ¢¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="message">æ¶ˆæ¯ã€‚</param>
         public static void Fatal(this ILogger logger, Exception exception, LocalizedString message)
         {
             FilteredLog(logger, LogLevel.Fatal, exception, message.ToString(), null);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Debug(this ILogger logger, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Debug, null, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Information(this ILogger logger, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Information, null, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Warning(this ILogger logger, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Warning, null, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Error(this ILogger logger, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Error, null, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Fatal(this ILogger logger, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Fatal, null, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öµ÷ÊÔĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè°ƒè¯•ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Debug(this ILogger logger, Exception exception, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Debug, exception, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Information(this ILogger logger, Exception exception, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Information, exception, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö¾¯¸æĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè­¦å‘Šä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Warning(this ILogger logger, Exception exception, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Warning, exception, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸ö´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªé”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Error(this ILogger logger, Exception exception, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Error, exception, format.ToString(), args);
         }
 
         /// <summary>
-        /// ¼ÇÂ¼Ò»¸öÖÂÃüµÄ´íÎóĞÅÏ¢¡£
+        /// è®°å½•ä¸€ä¸ªè‡´å‘½çš„é”™è¯¯ä¿¡æ¯ã€‚
         /// </summary>
-        /// <param name="logger">ÈÕÖ¾¼ÇÂ¼Æ÷¡£</param>
-        /// <param name="exception">Òì³£¡£</param>
-        /// <param name="format">¼ÇÂ¼¸ñÊ½¡£</param>
-        /// <param name="args">²ÎÊı¡£</param>
+        /// <param name="logger">æ—¥å¿—è®°å½•å™¨ã€‚</param>
+        /// <param name="exception">å¼‚å¸¸ã€‚</param>
+        /// <param name="format">è®°å½•æ ¼å¼ã€‚</param>
+        /// <param name="args">å‚æ•°ã€‚</param>
         public static void Fatal(this ILogger logger, Exception exception, LocalizedString format, params object[] args)
         {
             FilteredLog(logger, LogLevel.Fatal, exception, format.ToString(), args);
