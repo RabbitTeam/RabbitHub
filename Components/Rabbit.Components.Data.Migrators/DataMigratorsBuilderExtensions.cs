@@ -26,6 +26,9 @@ namespace Rabbit.Components.Data.Migrators
         /// <param name="settings">外壳设置信息。</param>
         public void Saved(ShellSettings settings)
         {
+            if (!DataMigratorsBuilderExtensions.StartingExecute)
+                return;
+
             lock (NeedMigratorTenants)
             {
                 if (!NeedMigratorTenants.Contains(settings.Name))
@@ -43,6 +46,9 @@ namespace Rabbit.Components.Data.Migrators
         /// <param name="descriptor">新的外壳描述符。</param><param name="tenant">租户名称。</param>
         public void Changed(ShellDescriptor descriptor, string tenant)
         {
+            if (!DataMigratorsBuilderExtensions.StartingExecute)
+                return;
+
             lock (NeedMigratorTenants)
             {
                 if (!NeedMigratorTenants.Contains(tenant))
@@ -87,6 +93,9 @@ namespace Rabbit.Components.Data.Migrators
         /// </summary>
         public void Activated()
         {
+            if (!DataMigratorsBuilderExtensions.StartingExecute)
+                return;
+
             lock (DataMigratorEvents.NeedMigratorTenants)
             {
                 if (DataMigratorEvents.NeedMigratorTenants.Contains(_shellSettings.Value.Name))
@@ -95,9 +104,6 @@ namespace Rabbit.Components.Data.Migrators
                     DataMigratorEvents.NeedMigratorTenants.Remove(_shellSettings.Value.Name);
                 }
             }
-
-            if (!DataMigratorsBuilderExtensions.StartingExecute)
-                return;
             try
             {
                 _dataMigratorService.Value.MigrateUp();

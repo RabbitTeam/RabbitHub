@@ -1,4 +1,4 @@
-﻿using Autofac;
+﻿using Autofac.Features.OwnedInstances;
 using Rabbit.Kernel.Logging;
 using Rabbit.Kernel.Tasks;
 using System;
@@ -8,14 +8,14 @@ namespace Rabbit.Kernel.Environment.Impl
 {
     internal sealed class DefaultShell : IShell
     {
-        private readonly ILifetimeScope _lifetimeScope;
+        private readonly Func<Owned<IEnumerable<IShellEvents>>> _eventsFactory;
         private readonly ISweepGenerator _sweepGenerator;
 
         public ILogger Logger { get; set; }
 
-        public DefaultShell(ILifetimeScope lifetimeScope, ISweepGenerator sweepGenerator)
+        public DefaultShell(Func<Owned<IEnumerable<IShellEvents>>> eventsFactory, ISweepGenerator sweepGenerator)
         {
-            _lifetimeScope = lifetimeScope;
+            _eventsFactory = eventsFactory;
             _sweepGenerator = sweepGenerator;
 
             Logger = NullLogger.Instance;
@@ -28,11 +28,11 @@ namespace Rabbit.Kernel.Environment.Impl
         /// </summary>
         public void Activate()
         {
-            using (var scope = _lifetimeScope.CreateWorkContextScope())
+            using (var events = _eventsFactory())
             {
-                foreach (var shellEventse in scope.Resolve<IEnumerable<IShellEvents>>())
+                foreach (var eventse in events.Value)
                 {
-                    shellEventse.Activated();
+                    eventse.Activated();
                 }
             }
 
@@ -46,11 +46,11 @@ namespace Rabbit.Kernel.Environment.Impl
         {
             SafelyTerminate(() =>
             {
-                using (var scope = _lifetimeScope.CreateWorkContextScope())
+                using (var events = _eventsFactory())
                 {
-                    foreach (var shellEventse in scope.Resolve<IEnumerable<IShellEvents>>())
+                    foreach (var eventse in events.Value)
                     {
-                        shellEventse.Terminating();
+                        SafelyTerminate(() => eventse.Terminating());
                     }
                 }
             });
