@@ -1,5 +1,4 @@
 ﻿using Rabbit.Components.DataBase.Providers;
-using Rabbit.Kernel;
 using Rabbit.Kernel.Environment.Configuration;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ namespace Rabbit.Components.DataBase
     /// <summary>
     /// 一个抽象的数据连接工厂。
     /// </summary>
-    public interface IDbConnectionFactory : IDependency
+    public interface IDbConnectionFactory
     {
         /// <summary>
         /// 请求一个数据连接。
