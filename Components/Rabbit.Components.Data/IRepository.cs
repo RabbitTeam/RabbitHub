@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-#if Net45
+#if !NET40
 using System.Threading;
 using System.Threading.Tasks;
 #endif
@@ -153,7 +153,7 @@ namespace Rabbit.Components.Data
         /// </summary>
         void Flush();
 
-#if Net45
+#if !NET40
         /// <summary>
         /// 刷新缓存区。
         /// </summary>

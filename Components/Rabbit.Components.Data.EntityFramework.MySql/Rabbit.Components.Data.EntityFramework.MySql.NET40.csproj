@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6BA8677D-0261-476D-AFF6-17DA447B587F}</ProjectGuid>
+    <ProjectGuid>{9A5B0723-8BCA-40D7-8551-6E78F96AB174}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rabbit.Components.Data.EntityFramework.MySql</RootNamespace>
     <AssemblyName>Rabbit.Components.Data.EntityFramework.MySql</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -17,38 +17,44 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\NET40\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Rabbit.Components.Data.EntityFramework.MySql.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\NET40\Debug\Rabbit.Components.Data.EntityFramework.MySql.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\NET40\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Rabbit.Components.Data.EntityFramework.MySql.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\NET40\Release\Rabbit.Components.Data.EntityFramework.MySql.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NET40_Release|AnyCPU'">
+    <OutputPath>bin\NET40\Release\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <DocumentationFile>bin\NET40\Release\Rabbit.Components.Data.EntityFramework.MySql.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <HintPath>..\..\packages\MySql.Data.6.9.8\lib\net40\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MySql.Data.Entity.6.9.8\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <HintPath>..\..\packages\MySql.Data.Entity.6.9.8\lib\net40\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -70,12 +76,12 @@
       <Project>{b9c6d026-75ed-49de-8889-4930a72590da}</Project>
       <Name>Rabbit.Kernel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rabbit.Components.Data.EntityFramework\Rabbit.Components.Data.EntityFramework.csproj">
-      <Project>{f7926212-524a-438a-acee-7aba24423bd1}</Project>
-      <Name>Rabbit.Components.Data.EntityFramework</Name>
+    <ProjectReference Include="..\Rabbit.Components.Data.EntityFramework\Rabbit.Components.Data.EntityFramework.NET40.csproj">
+      <Project>{93c90a90-c636-4c6a-b73f-0fdcc4442a85}</Project>
+      <Name>Rabbit.Components.Data.EntityFramework.NET40</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rabbit.Components.Data.MySql\Rabbit.Components.Data.MySql.csproj">
-      <Project>{0417DF87-E392-474F-9014-7A4B16997061}</Project>
+      <Project>{0417df87-e392-474f-9014-7a4b16997061}</Project>
       <Name>Rabbit.Components.Data.MySql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rabbit.Components.Data\Rabbit.Components.Data.csproj">

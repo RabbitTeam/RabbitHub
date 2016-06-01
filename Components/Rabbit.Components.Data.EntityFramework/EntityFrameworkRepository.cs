@@ -5,7 +5,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 
-#if Net45
+#if !NET40
 
 using System.Threading;
 using System.Threading.Tasks;
@@ -127,7 +127,7 @@ namespace Rabbit.Components.Data.EntityFramework
             DbContext.SaveChanges();
         }
 
-#if Net45
+#if !NET40
         /// <summary>
         /// 刷新缓存区。
         /// </summary>
