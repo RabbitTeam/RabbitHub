@@ -34,7 +34,7 @@ namespace Rabbit.Components.Data.Migrators
         /// </summary>
         public Feature Feature { get; set; }
 
-        private ShellSettings ShellSettings { get { return LifetimeScope.Resolve<ShellSettings>(); } }
+        private ShellSettings ShellSettings => LifetimeScope.Resolve<ShellSettings>();
 
         #endregion Property
 
@@ -65,6 +65,17 @@ namespace Rabbit.Components.Data.Migrators
                 dataTablePrefix = ShellSettings.GetDataTablePrefix() + "_";
 
             return dataTablePrefix + extensionName + '_' + recordName;
+        }
+
+        /// <summary>
+        /// 获取一个租户内唯一名称（防止外键、主键名称冲突的问题）。
+        /// </summary>
+        /// <param name="name">名称。</param>
+        /// <returns>组合过后的唯一名称。</returns>
+        protected string GetOnlyName(string name)
+        {
+            var prefix = ShellSettings.GetDataTablePrefix();
+            return string.IsNullOrEmpty(prefix) ? name : $"{prefix}_{name}";
         }
 
         #endregion Protected Method

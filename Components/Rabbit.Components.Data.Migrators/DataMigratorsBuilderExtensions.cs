@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Rabbit.Components.Data.Utility.Extensions;
 using Rabbit.Kernel;
 using Rabbit.Kernel.Environment;
 using Rabbit.Kernel.Environment.Configuration;
@@ -14,7 +15,7 @@ namespace Rabbit.Components.Data.Migrators
     {
         #region Field
 
-        public readonly static List<string> NeedMigratorTenants = new List<string>();
+        public static readonly List<string> NeedMigratorTenants = new List<string>();
 
         #endregion Field
 
@@ -65,6 +66,7 @@ namespace Rabbit.Components.Data.Migrators
 
         private readonly Lazy<IDataMigratorService> _dataMigratorService;
         private readonly Lazy<ShellSettings> _shellSettings;
+        private static readonly object SyncLock = new object();
 
         #endregion Field
 
@@ -104,13 +106,19 @@ namespace Rabbit.Components.Data.Migrators
                     DataMigratorEvents.NeedMigratorTenants.Remove(_shellSettings.Value.Name);
                 }
             }
-            try
+
+            lock (SyncLock)
             {
-                _dataMigratorService.Value.MigrateUp();
-            }
-            catch (Exception exception)
-            {
-                Logger.Error("对租户 {0} 进行迁移时发生了一个或多个错误，错误信息：{1}", _shellSettings.Value.Name, exception.Message);
+                try
+                {
+                    var prefix = _shellSettings.Value.GetDataTablePrefix();
+                    VersionTable.SetTableName(string.IsNullOrEmpty(prefix) ? "VersionInfo" : $"{prefix}_VersionInfo");
+                    _dataMigratorService.Value.MigrateUp();
+                }
+                catch (Exception exception)
+                {
+                    Logger.Error("对租户 {0} 进行迁移时发生了一个或多个错误，错误信息：{1}", _shellSettings.Value.Name, exception.Message);
+                }
             }
         }
 

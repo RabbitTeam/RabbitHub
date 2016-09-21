@@ -59,6 +59,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VersionTable.cs" />
     <Compile Include="DataMigratorsBuilderExtensions.cs" />
     <Compile Include="DataMigratorService.cs" />
     <Compile Include="MigrationBase.cs" />
