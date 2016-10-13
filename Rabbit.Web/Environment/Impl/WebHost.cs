@@ -243,7 +243,10 @@ namespace Rabbit.Web.Environment.Impl
         {
             Logger.Information("开始创建外壳上下文。");
 
-            var allSettings = _shellSettingsManager.LoadSettings().ToArray();
+            var allSettings = _shellSettingsManager
+                                    .LoadSettings()
+                                    .Where(settings => settings.State == TenantState.Running || settings.State == TenantState.Uninitialized)
+                                    .ToArray();
 
             if (allSettings.Any())
             {
